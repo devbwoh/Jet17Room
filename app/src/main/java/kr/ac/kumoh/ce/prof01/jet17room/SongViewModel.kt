@@ -21,8 +21,8 @@ class SongViewModel(application: Application) : AndroidViewModel(application) {
         get() = _songs
 
     init {
-        add("노래 테스트 1", "가수 1")
-        add("노래 테스트 2", "가수 2")
+//        add("노래 테스트 1", "가수 1")
+//        add("노래 테스트 2", "가수 2")
 
         select()
     }

@@ -3,14 +3,14 @@ package kr.ac.kumoh.ce.prof01.jet17room
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -63,8 +63,8 @@ fun SongList(paddingValues: PaddingValues) {
     val viewModel: SongViewModel = viewModel()
     val songs by viewModel.songs.collectAsState()
 
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+    LazyVerticalStaggeredGrid(
+        StaggeredGridCells.Fixed(2),
         contentPadding = paddingValues,
     ) {
         items(
@@ -113,10 +113,20 @@ fun SingerName(name: String) {
 @Composable
 fun SongAddButton() {
     val viewModel: SongViewModel = viewModel()
+    val songsToAdd = listOf(
+        listOf("사랑에 연습이 있었다면", "임재현"),
+        listOf("소주 한 잔", "임창정"),
+        listOf("비의 랩소디", "임재현"),
+        listOf("ETA", "NewJeans"),
+        listOf("어떻게 이별까지 사랑하겠어, 널 사랑하는 거지", "AKMU(악뮤)"),
+        listOf("헤어지자 말해요", "박재정"),
+        listOf("Perfect Night", "LE SSERAFIM (르세라핌)"),
+    )
 
     FloatingActionButton(
         onClick = {
-            viewModel.add("아무노래", "지코")
+            val song = songsToAdd.random()
+            viewModel.add(song[0], song[1])
         },
         shape = RoundedCornerShape(16.dp)
     ) {
